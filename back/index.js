@@ -118,10 +118,10 @@ app.post('/utilisateur', async (req, res) => {
 
         const hashedPassword = await bcrypt.hash(newUser.pwd, 10);
 
-        const hashedEmail = await bcrypt.hash(newUser.email, 10);
+        // const hashedEmail = await bcrypt.hash(newUser.email, 10);
 
         const result = await conn.query('INSERT INTO utilisateur (email, pwd, nom, prenom) VALUES (?, ?, ?, ?)', [
-            hashedEmail || newUser.email,
+            newUser.email,
             hashedPassword,
             newUser.nom,
             newUser.prenom,

@@ -16,11 +16,12 @@ html, body {
   --color-primary: #2fe6ff;
   --color-primary-hover: #3bf2ff;
   --color-inactive: #349de8;
-  --color-background: #293b4c;
+  --color-box: #293b4c;
   --color-bg-hover: #344657;
   --color-border: #607482;
   --color-font: #fff;
   --color-gray: #e3f9ff;
+  --color-background: #1e2732;
   --color-btn-gray-hover: #4d5d6d;
 }
 
