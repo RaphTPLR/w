@@ -1,0 +1,19 @@
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    a {
+        text-decoration: none;
+        color: var(--color-font);
+        font-size: 3rem;
+        font-family: 'Kalam', cursive;
+    }
+    .logo {
+        height: 3rem;
+        width: 3rem;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin: 1rem;
+    }
+}

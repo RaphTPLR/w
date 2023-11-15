@@ -1,0 +1,180 @@
+.home {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .center {
+        display: flex;
+        flex-direction: column;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fyp {
+            position: relative;
+            display: flex;
+            height: 5rem;
+            border: 1px solid var(--color-border);
+            border-top: none;
+            
+            .text {
+                width: 80%;
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                margin: 0 2rem 0 5rem;
+                cursor: pointer;
+            }
+
+            .settings {
+                width: 20%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+            }
+
+            .pp-set {
+                position: absolute;
+                background-color: red;
+                border-radius: 50%;
+                height: 2rem;
+                width: 2rem;
+                right: 1rem;
+                
+            }
+        }
+
+        .weet {
+            min-height: 8rem;
+            display: flex;
+            border: 1px solid var(--color-border);
+            border-top: none;
+
+            .l-weet {
+                height: 100%;
+                width: 15%;
+
+                .pp-weet {
+                    height: 3rem;
+                    width: 3rem;
+                    margin: .8rem;
+                    background-color: red;
+                    border-radius: 50%;
+                }
+            }
+
+            .r-weet {
+                height: 100%;
+                width: 85%;
+
+                .input-weet {
+                    height: 50%;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+
+                    input {
+                        background-color: var(--color-gray);
+                        height: 70%;
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        background-color: transparent;
+                        color: var(--color-font);
+                        font-size: 1.5rem;
+                        padding-left: 1rem;
+                    }
+                }
+
+                .icon-weet {
+                    width: 95%;
+                    height: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    border-top: 1px solid var(--color-border);
+                    
+                    .icons-weet {
+                        width: 50%;
+                        height: 50%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        #icon-weet {
+                            height: 1.7rem;
+                            width: 1.7rem;
+                            border-radius: 50%;
+                            background-color: var(--color-primary);
+                        }
+                    }
+
+                    .post-weet {
+                        height: 100%;
+                        width: 20%;
+                        margin-right: 1rem;
+                        display: flex;
+                        align-items: center;
+
+                        .btn-post {
+                            background-color: var(--color-inactive);
+                            height: 60%;
+                            width: 100%;
+                            border-radius: 2rem;
+                            display: grid;
+                            place-items: center;
+                            cursor: pointer;
+                        }
+                    }
+                    p {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+
+        .tl {
+            border: 1px solid var(--color-border);
+            border-top: none;
+
+            .article {
+                border-bottom: 1px solid var(--color-border);
+                padding: 1rem;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: var(--color-bg-hover);
+                }
+
+                .header {
+                    height: 1.5rem;
+                    font-weight: 700;
+                    display: flex;
+                    align-items: center;
+
+                    .pp {
+                        background-color: red;
+                        width: 1.5rem;
+                        height: 1.5rem;
+                        border-radius: 50%;
+                        margin-right: 1rem;
+                    }
+                }
+
+                .texte {
+                    min-height: 2rem;
+                }
+
+                .date {
+                    height: 1.5rem;
+                    display: flex;
+                    justify-content: end;
+                    font-size: .7rem;
+                }
+            }
+        }
+    }
+}

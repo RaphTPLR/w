@@ -1,5 +1,6 @@
 const express = require("express");
 const mariadb = require("mariadb");
+const bcrypt = require('bcrypt');
 let cors = require("cors");
 require('dotenv').config();
 
@@ -115,9 +116,13 @@ app.post('/utilisateur', async (req, res) => {
     try {
         conn = await pool.getConnection();
 
+        const hashedPassword = await bcrypt.hash(newUser.pwd, 10);
+
+        const hashedEmail = await bcrypt.hash(newUser.email, 10);
+
         const result = await conn.query('INSERT INTO utilisateur (email, pwd, nom, prenom) VALUES (?, ?, ?, ?)', [
-            newUser.email,
-            newUser.pwd,
+            hashedEmail || newUser.email,
+            hashedPassword,
             newUser.nom,
             newUser.prenom,
         ]);
