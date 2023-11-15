@@ -5,8 +5,39 @@
     justify-content: center;
 
     .left {
-        background-color: red;
         width: 20vw;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-between;
+
+        .navbar {
+            height: 30rem;
+        }
+
+        .profil-picture {   
+            width: 100%;
+            height: 5rem;
+            display: flex;
+            align-items: center;
+
+            .pp-box {
+                height: 100%;
+                width: 5rem;
+                display: grid;
+                place-items: center;
+
+                .pp {
+                    width: 3rem;
+                    height: 3rem;
+                    background-color: red;
+                    border-radius: 50%;
+                }
+            }
+
+            .content {
+                width: 60%;
+            }
+        }
     }
 
     .center {

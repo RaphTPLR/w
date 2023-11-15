@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/Home.scss';
+import moment from 'moment';
+import 'moment/locale/fr';
 import ImageIcon from '@mui/icons-material/Image';
 import GifBoxIcon from '@mui/icons-material/GifBox';
 import ListIcon from '@mui/icons-material/List';
@@ -8,6 +10,8 @@ import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAlt
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import SearchIcon from '@mui/icons-material/Search';
+import SettingsIcon from '@mui/icons-material/Settings';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
 export default function NavBar() {
     const [article, setArticle] = useState([]);
@@ -73,9 +77,32 @@ export default function NavBar() {
             }
         }
 
+        moment.locale('fr');
+        const formattedDate = moment(article.create_date).format('LLL');
+
     return (
         <div className="home">
-            <div className="left"></div>
+            <div className="left">
+                <div className="navbar">
+
+                </div>
+                <div className="profil-picture">
+                    <div className="pp-box">
+                        <div className="pp"></div>
+                    </div>
+                    <div className="content">
+                        <div className="nom">
+                            <p>Nom</p>
+                        </div>
+                        <div className="email">
+                            <p>email@email.email</p>
+                        </div>
+                    </div>
+                    <div className="options">
+                        <MoreHorizIcon />
+                    </div>
+                </div>
+            </div>
             <div className="center">
                 <div className="fyp">
                     <div className="text">
@@ -83,7 +110,7 @@ export default function NavBar() {
                         <p>Abonnements</p>
                     </div>
                     <div className="settings">
-                        <div className="pp-set"></div>
+                        <SettingsIcon />
                     </div>
                 </div>
                 <div className="weet">
@@ -136,7 +163,7 @@ export default function NavBar() {
                                 <p>{ article.texte }</p>
                             </div>
                             <div className="date">
-                            <p>{ article.create_date }</p>
+                                <p>{ formattedDate }</p>
                             </div>
                         </div>
                     ))}    
