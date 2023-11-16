@@ -13,22 +13,47 @@ import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-export default function NavBar() {
-    const [article, setArticle] = useState([]);
-    const [weet, setWeet] = useState('');
-    const [email, setEmail] = useState('');
-    const [nom, setNom] = useState('');
-    const [prenom, setPrenom] = useState('');
-    const [pwd, setPwd] = useState('');
+export default function Home() {
+  const [articles, setArticles] = useState([]);
+  const [user, setUser] = useState([]);
+  const [weet, setWeet] = useState('');
+  const [email, setEmail] = useState('');
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
+  const [pwd, setPwd] = useState('');
 
-    useEffect(() => {
-        axios.get(`http://localhost:3000/article`)
-          .then(res => {
-            setArticle(res.data);
-          })
-          .catch(error => {
-            console.error('Une erreur s\'est produite lors de la requête:', error);
-          });
+  useEffect(() => {
+    const fetchArticles = async () => {
+      try {
+        const articleRes = await axios.get('http://localhost:3000/article');
+        const articlesRecuperes = articleRes.data;
+        const userRes = await axios.get('http://localhost:3000/utilisateur');
+        const userRecuperes = userRes.data;
+
+        // const articlesAvecNoms = await Promise.all(
+        //   articlesRecuperes.map(async (article) => {
+        //     try {
+        //       const responseUser = await axios.get(`http://localhost:3000/utilisateur/${article.auteur}`);
+        //       const utilisateur = responseUser.data;
+
+        //       return { ...article, utilisateur };
+        //     } catch (error) {
+        //       console.error('Erreur lors de la récupération de l\'utilisateur :', error);
+        //       return article;
+        //     }
+        //   })
+        // );
+
+
+        setUser(userRecuperes);
+        // setArticles(articlesAvecNoms);
+        setArticles(articlesRecuperes);
+      } catch (error) {
+        console.error('Une erreur s\'est produite lors de la requête:', error);
+      }
+    };
+
+    fetchArticles();
 
         }, []);
 
@@ -38,50 +63,58 @@ export default function NavBar() {
 
         const [isLoggedIn, setLoggedIn] = useState(false);
 
-        const post = async(e)=>{
-            e.preventDefault()
+  const post = async (e) => {
+    e.preventDefault();
 
-            const title = weet.split(' ').slice(0,2).join(' ');
+    const title = weet.split(' ').slice(0, 2).join(' ');
 
-            const newArticle = {
-                titre: title,
-                texte: weet,
-                auteur: 2,
-                create_date: Date.now(),
-            }
+    const newArticle = {
+      titre: title,
+      texte: weet,
+      auteur: 28,
+      create_date: Date.now(),
+    };
 
-            const res = await axios.post('http://localhost:3000/article', newArticle);
+    try {
+      const res = await axios.post('http://localhost:3000/article', newArticle);
+      console.log(res.data);
+    } catch (error) {
+      console.error('Erreur lors de la publication de l\'article :', error);
+    }
+  };
+
+  const createUser = async (e) => {
+    e.preventDefault();
+    let state = true;
+
+    try {
+      const check = await axios.get('http://localhost:3000/utilisateur');
+
+      for (let i = 0; i < check.data.length - 1; i++) {
+        if (check.data[i].email === email) {
+          state = false;
         }
+      }
 
-        const createUser = async(e)=>{
-            e.preventDefault()
-            let state = true;
+      console.log(state);
 
-            const check = await axios.get('http://localhost:3000/utilisateur');
+      if (state) {
+        const newUser = {
+          email: email,
+          nom: nom,
+          prenom: prenom,
+          pwd: pwd,
+        };
 
-            for(let i = 0; i < check.data.length - 1; i++) {
-                if (check.data[i].email === email) {
-                    state = false;
-                }
-            }
-            
-            console.log(state)
-            
-            if (state) {
-                const newUser = {
-                    email: email,
-                    nom: nom,
-                    prenom: prenom,
-                    pwd: pwd,
-                }
-
-                console.log(newUser);
-                const res = await axios.post('http://localhost:3000/utilisateur', newUser);
-            } else {
-                console.log("L'utilisateur existe déjà !")
-                return
-            }
-        }
+        console.log(newUser);
+        const res = await axios.post('http://localhost:3000/utilisateur', newUser);
+        console.log(res.data);
+      } else {
+        console.log("L'utilisateur existe déjà !");
+      }
+    } catch (error) {
+      console.error('Erreur lors de la création de l\'utilisateur :', error);
+    }
 
         const goLogin = async () => {
             try {
@@ -100,9 +133,9 @@ export default function NavBar() {
                 console.error(error);
             }
         }
+  };
 
-        moment.locale('fr');
-        const formattedDate = moment(article.create_date).format('LLL');
+  moment.locale('fr');
 
     return (
         <div className="home">
@@ -175,22 +208,21 @@ export default function NavBar() {
                     </div>
                 </div>
                 <div className="tl">
-                    { article.map(article => (
-                        <div className="article">
-                            <div className="header">
-                                <div className="pp"></div>
-                                <span>{ article.auteur }</span>
-                                <span> - </span>
-                                <span>{ article.titre }</span>
-                            </div>
-                            <div className="texte">
-                                <p>{ article.texte }</p>
-                            </div>
-                            <div className="date">
-                                <p>{ formattedDate }</p>
-                            </div>
-                        </div>
-                    ))}    
+                {articles.map((article) => (
+                    <div className="article" key={article.id}>
+                    <div className="header">
+                        <div className="pp"></div>
+                        <span>{article.utilisateur ? article.utilisateur.nom : 'Auteur inconnu'} {article.utilisateur ? article.utilisateur.prenom : ''} -</span>
+                        <span>:- {article.titre}</span>
+                    </div>
+                    <div className="texte">
+                        <p>{article.texte}</p>
+                    </div>
+                    <div className="date">
+                        <p>{moment(article.create_date).format('LLL')}</p>
+                    </div>
+                    </div>
+                ))}
                 </div>
             </div>
             <div className="right">
@@ -234,6 +266,28 @@ export default function NavBar() {
                     </div>
                     <div className="submit">
                         <div className="btn-submit" onClick={goLogin}>CREER</div>
+                    </div>
+                </div>
+                <div className="recommendation" id='box'>
+                    <div className="title">
+                        <h3>RECOMMENDATION</h3>
+                    </div>
+                    <div className="container">
+                        { user.map((user) => (
+                            <div className="row-user">
+                                <div className="pp-box">
+                                    <div className="pp"></div>
+                                </div>
+                                <div className="content">
+                                    <div className="name">
+                                        <p>{ user.nom } { user.prenom }</p>
+                                    </div>
+                                    <div className="email">
+                                        <p>@{ user.email }</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
