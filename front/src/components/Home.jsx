@@ -114,20 +114,21 @@ export default function Home() {
       console.error('Erreur lors de la création de l\'utilisateur :', error);
     }
 
-        const goLogin = async () => {
-            try {
-                const rows = await axios.post('http://localhost:3000/login', loginData);
-                if(rows.status === 200) {
-                    setLoggedIn(true);
-                    console.log("Connecté")
-                } else {
-                    console.log("Non");
-                }
-            } catch (error) {
-                console.error(error);
-            }
+};
+
+const goLogin = async () => {
+    try {
+        const rows = await axios.post('http://localhost:3000/login', loginData);
+        if(rows.status === 200) {
+            setLoggedIn(true);
+            console.log("Connecté")
+        } else {
+            console.log("Non");
         }
-  };
+    } catch (error) {
+        console.error(error);
+    }
+}
 
   moment.locale('fr');
 
