@@ -32,6 +32,8 @@ export default function NavBar() {
 
         }, []);
 
+        const ls = localStorage;
+
         const [loginData, setLoginData] = useState({email: '',password: ''});
 
         const [isLoggedIn, setLoggedIn] = useState(false);
@@ -86,6 +88,10 @@ export default function NavBar() {
                 const rows = await axios.post('http://localhost:3000/login', loginData);
                 if(rows.status === 200) {
                     setLoggedIn(true);
+                    ls.setItem("key1", rows.email);
+                    ls.setItem("key2", rows.nom);
+                    ls.setItem("key3", rows.prenom);
+                    ls.setItem("key4", rows.id);
                     console.log("Connecté")
                 } else {
                     console.log("Non");
