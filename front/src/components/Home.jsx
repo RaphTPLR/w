@@ -71,7 +71,7 @@ export default function Home() {
     const newArticle = {
       titre: title,
       texte: weet,
-      auteur: 28,
+      auteur: ls.getItem("key1"),
       create_date: Date.now(),
     };
 
@@ -125,11 +125,13 @@ const goLogin = async () => {
         const rows = await axios.post('http://localhost:3000/login', loginData);
         if(rows.status === 200) {
             setLoggedIn(true);
-            ls.setItem("key1", rows.id);
-            ls.setItem("key2", rows.prenom);
-            ls.setItem("key3", rows.nom);
-            ls.setItem("key4", rows.email);
+            const userData = rows.data;
+            ls.setItem("key1", userData.id);
+            ls.setItem("key2", userData.prenom);
+            ls.setItem("key3", userData.nom);
+            ls.setItem("key4", userData.email);
             console.log("Connecté")
+            console.log(ls);
         } else {
             console.log("Non");
         }
@@ -151,12 +153,12 @@ const goLogin = async () => {
                         <div className="pp"></div>
                     </div>
                     <div className="content">
-                        <div className="nom">
-                            <p>Nom</p>
-                        </div>
-                        <div className="email">
-                            <p>email@email.email</p>
-                        </div>
+                    <div className="nom">
+                        <p>{ls.getItem("key3") || "Utilisateur inconnu"}</p>
+                    </div>
+                    <div className="email">
+                        <p>{ls.getItem("key4") || "Email inconnu"}</p>
+                    </div>
                     </div>
                     <div className="options">
                         <MoreHorizIcon />
