@@ -63,6 +63,22 @@
                 justify-content: space-between;
                 margin: 0 2rem 0 5rem;
                 cursor: pointer;
+
+                p:first-child {
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    height: 3.5rem;
+                    border-bottom: 4px solid var(--color-primary);
+                }
+
+                p:last-child {
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    height: 3.5rem;
+                    border-bottom: 4px solid transparent;
+                }
             }
 
             .settings {
@@ -341,6 +357,48 @@
                     place-items: center;
                     margin-top: .5rem;
                     cursor: pointer;
+                }
+            }
+        }
+
+        .recommendation {
+            overflow-y: scroll;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .row-user {
+                margin: 1rem;
+                height: 3rem;
+                display: flex;
+
+                .pp-box {
+                    width: 3rem;
+                    height: 3.5rem;
+                    display: grid;
+                    place-items: center;
+
+                    .pp {
+                        background-color: red;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        border-radius: 50%;
+                    }
+                }
+
+                .content {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+
+                    .name {
+                        font-weight: 700;
+                    }
+
+                    p {
+                        margin: 0;
+                    }
                 }
             }
         }

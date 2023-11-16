@@ -48,6 +48,19 @@ app.get('/article/:id', async (req, res) => {
     }
 });
 
+app.get('/article/:auteur', async (req, res) => {
+    const auteur = req.params.auteur;
+    let conn;
+    try {   
+        conn = await pool.getConnection();
+        const rows = await conn.query('SELECT * FROM article WHERE auteur = ?', [auteur]);
+        res.status(200).json(rows[0]);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: 'Erreur Serveur' });
+    }
+});
+
 app.post('/article', async (req, res) => {
     const newArticle = req.body;
     let conn;
