@@ -12,6 +12,12 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import SearchIcon from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import HomeIcon from '@mui/icons-material/Home';
+import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import ListAltIcon from '@mui/icons-material/ListAlt';
+import TurnedInNotIcon from '@mui/icons-material/TurnedInNot';
+import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 
 export default function Home() {
   const [articles, setArticles] = useState([]);
@@ -64,7 +70,7 @@ export default function Home() {
   const post = async (e) => {
     e.preventDefault();
 
-    const title = weet.split(' ').slice(0, 2).join(' ');
+    const title = weet.split(' ').slice(0, 3).join(' ');
 
     const newArticle = {
       titre: title,
@@ -135,8 +141,84 @@ const goLogin = async () => {
     return (
         <div className="home">
             <div className="left">
-                <div className="navbar">
-
+                <div className="navbar-home">
+                    <div id="navbox">
+                        <div className="pp">
+                            <HomeIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span style={{ fontWeight: 700 }}>Accueil</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <SearchIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Explorer</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <NotificationsNoneIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Notification</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <MailOutlineIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Messages</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <ListAltIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Listes</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <TurnedInNotIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Signets</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                        <span className='logo' style={{ fontSize: 35 }}>W</span>
+                        </div>
+                        <div className="text">
+                            <span>Premium</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <PermIdentityIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Profil</span>
+                        </div>
+                    </div>
+                    <div id="navbox">
+                        <div className="pp">
+                            <MoreHorizIcon style={{ fontSize: 35 }}/>
+                        </div>
+                        <div className="text">
+                            <span>Plus</span>
+                        </div>
+                    </div>
+                    <div id='navbox'>
+                        <div className="btn">
+                            <span>Poster</span>
+                        </div>
+                    </div>
                 </div>
                 <div className="profil-picture">
                     <div className="pp-box">
@@ -147,7 +229,7 @@ const goLogin = async () => {
                             <p>Nom</p>
                         </div>
                         <div className="email">
-                            <p>email@email.email</p>
+                            <p>./email@email.email</p>
                         </div>
                     </div>
                     <div className="options">
@@ -207,8 +289,11 @@ const goLogin = async () => {
                     <div className="article" key={article.id}>
                     <div className="header">
                         <div className="pp"></div>
-                        <span>{article.utilisateur ? article.utilisateur.nom : 'Auteur inconnu'} {article.utilisateur ? article.utilisateur.prenom : ''} -</span>
-                        <span>:- {article.titre}</span>
+                        <span>{article.utilisateur ? article.utilisateur.nom : 'Auteur inconnu'} {article.utilisateur ? article.utilisateur.prenom : ''} ./</span>
+                        <span>email@email.email</span>
+                    </div>
+                    <div className="title">
+                        <p>{ article.titre }</p>
                     </div>
                     <div className="texte">
                         <p>{article.texte}</p>
@@ -278,7 +363,7 @@ const goLogin = async () => {
                                         <p>{ user.nom } { user.prenom }</p>
                                     </div>
                                     <div className="email">
-                                        <p>@{ user.email }</p>
+                                        <p>./{ user.email }</p>
                                     </div>
                                 </div>
                             </div>
