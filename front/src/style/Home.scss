@@ -50,6 +50,11 @@
                     border-radius: 2rem;
                     display: grid;
                     place-items: center;
+                    transition: all .2s ease-in-out;
+
+                    &:hover {
+                        background-color: var(--color-primary-hover);
+                    }
 
                     span {
                         font-weight: 700;
@@ -229,6 +234,12 @@
                             display: grid;
                             place-items: center;
                             cursor: pointer;
+                            transition: all .2s ease-in-out;
+
+                            &:hover {
+                                background-color: var(--color-primary-hover);
+                            }
+
                         }
                     }
                     p {
@@ -407,7 +418,13 @@
                     display: grid;
                     place-items: center;
                     margin-top: .5rem;
+                    font-size: .8rem;
                     cursor: pointer;
+                    transition: all .2s ease-in-out;
+
+                    &:hover {
+                        background-color: var(--color-primary-hover);
+                    }
                 }
             }
         }

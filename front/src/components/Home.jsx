@@ -349,7 +349,7 @@ const goLogout = async () => {
                         </div>
                     </div>
                     <div className="submit">
-                        <div className="btn-submit" onClick={ createUser }>POSTER</div>
+                        <div className="btn-submit" onClick={ createUser }>Poster</div>
                     </div>
                 </div>
                 {isLoggedIn == false ? (
@@ -366,7 +366,7 @@ const goLogout = async () => {
                     </div>
                 </div>
                 <div className="submit">
-                    <div className="btn-submit" onClick={goLogin}>POSTER</div>
+                    <div className="btn-submit" onClick={goLogin}>Poster</div>
                 </div>
                 </div>
                 ) : null}
