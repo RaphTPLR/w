@@ -55,7 +55,11 @@ export default function Home() {
 
     fetchArticles();
 
-  }, []);
+        }, []);
+
+        const [loginData, setLoginData] = useState({email: '',password: ''});
+
+        const [isLoggedIn, setLoggedIn] = useState(false);
 
   const post = async (e) => {
     e.preventDefault();
@@ -109,6 +113,20 @@ export default function Home() {
     } catch (error) {
       console.error('Erreur lors de la création de l\'utilisateur :', error);
     }
+
+        const goLogin = async () => {
+            try {
+                const rows = await axios.post('http://localhost:3000/login', loginData);
+                if(rows.status === 200) {
+                    setLoggedIn(true);
+                    console.log("Connecté")
+                } else {
+                    console.log("Non");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
   };
 
   moment.locale('fr');
@@ -234,14 +252,14 @@ export default function Home() {
                     </div>
                     <div className="form">
                         <div className="email">
-                            <input type="text" placeholder='Email'/>
+                            <input type="text" placeholder='Email' onChange={(e) => setLoginData({...loginData, email: e.target.value})}/>
                         </div>
                         <div className="pwd">
-                            <input type="password" placeholder='Mot de passe'/>
+                            <input type="password" placeholder='Mot de passe' onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
                         </div>
                     </div>
                     <div className="submit">
-                        <div className="btn-submit">CREER</div>
+                        <div className="btn-submit" onClick={goLogin}>CREER</div>
                     </div>
                 </div>
                 <div className="recommendation" id='box'>
