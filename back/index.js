@@ -58,7 +58,13 @@ app.post('/login', async (req, res) => {
             const user = rows[0];
             const match = await bcrypt.compare(password, user.pwd);
             if (match) {
-                res.status(200).json('Connexion réussie')
+                res.status(200).json({
+                    id: user.id,
+                    prenom: user.prenom,
+                    nom: user.nom,
+                    email: user.email,
+                    message: 'Connexion réussie'}
+                )
             } else {
                 res.status(401).json('Données incorrectes');
             }

@@ -63,6 +63,8 @@ export default function Home() {
 
         }, []);
 
+        const ls = localStorage;
+
         const [loginData, setLoginData] = useState({email: '',password: ''});
 
         const [isLoggedIn, setLoggedIn] = useState(false);
@@ -75,7 +77,7 @@ export default function Home() {
     const newArticle = {
       titre: title,
       texte: weet,
-      auteur: 28,
+      auteur: ls.getItem("key1"),
       create_date: Date.now(),
     };
 
@@ -124,14 +126,32 @@ export default function Home() {
 
 const goLogin = async () => {
     try {
+        localStorage.clear();
+        const ls = localStorage;
         const rows = await axios.post('http://localhost:3000/login', loginData);
         if(rows.status === 200) {
             setLoggedIn(true);
+            const userData = rows.data;
+            ls.setItem("key1", userData.id);
+            ls.setItem("key2", userData.prenom);
+            ls.setItem("key3", userData.nom);
+            ls.setItem("key4", userData.email);
             console.log("Connecté")
+            console.log(ls);
         } else {
             console.log("Non");
         }
     } catch (error) {
+        console.error(error);
+    }
+}
+
+const goLogout = async () => {
+    try {
+        localStorage.clear();
+        setLoggedIn(false);
+        window.location.reload();
+    } catch(error) {
         console.error(error);
     }
 }
@@ -222,15 +242,15 @@ const goLogin = async () => {
                 </div>
                 <div className="profil-picture">
                     <div className="pp-box">
-                        <div className="pp"></div>
+                        <div className="pp" onClick={() => goLogout()}></div>
                     </div>
                     <div className="content">
-                        <div className="nom">
-                            <p>Nom</p>
-                        </div>
-                        <div className="email">
-                            <p>./email@email.email</p>
-                        </div>
+                    <div className="nom">
+                        <p>{ls.getItem("key3") || "Utilisateur inconnu"}</p>
+                    </div>
+                    <div className="email">
+                        <p>{ls.getItem("key4") || "Email inconnu"}</p>
+                    </div>
                     </div>
                     <div className="options">
                         <MoreHorizIcon />
@@ -329,25 +349,27 @@ const goLogin = async () => {
                         </div>
                     </div>
                     <div className="submit">
-                        <div className="btn-submit" onClick={ createUser }>CREER</div>
+                        <div className="btn-submit" onClick={ createUser }>POSTER</div>
                     </div>
                 </div>
-                <div className="login-user" id='box'>
+                {isLoggedIn == false ? (
+                    <div className="login-user" id='box'>
                     <div className="title">
                         <h3>LOGIN</h3>
                     </div>
                     <div className="form">
                         <div className="email">
-                            <input type="text" placeholder='Email' onChange={(e) => setLoginData({...loginData, email: e.target.value})}/>
-                        </div>
-                        <div className="pwd">
-                            <input type="password" placeholder='Mot de passe' onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
-                        </div>
+                        <input type="text" placeholder='Email' onChange={(e) => setLoginData({...loginData, email: e.target.value})}/>
                     </div>
-                    <div className="submit">
-                        <div className="btn-submit" onClick={goLogin}>CREER</div>
+                    <div className="pwd">
+                        <input type="password" placeholder='Mot de passe' onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
                     </div>
                 </div>
+                <div className="submit">
+                    <div className="btn-submit" onClick={goLogin}>POSTER</div>
+                </div>
+                </div>
+                ) : null}
                 <div className="recommendation" id='box'>
                     <div className="title">
                         <h3>RECOMMENDATION</h3>
