@@ -140,6 +140,16 @@ const goLogin = async () => {
     }
 }
 
+const goLogout = async () => {
+    try {
+        localStorage.clear();
+        setLoggedIn(false);
+        window.location.reload();
+    } catch(error) {
+        console.error(error);
+    }
+}
+
   moment.locale('fr');
 
     return (
@@ -150,7 +160,7 @@ const goLogin = async () => {
                 </div>
                 <div className="profil-picture">
                     <div className="pp-box">
-                        <div className="pp"></div>
+                        <div className="pp" onClick={() => goLogout()}></div>
                     </div>
                     <div className="content">
                     <div className="nom">
@@ -254,25 +264,27 @@ const goLogin = async () => {
                         </div>
                     </div>
                     <div className="submit">
-                        <div className="btn-submit" onClick={ createUser }>CREER</div>
+                        <div className="btn-submit" onClick={ createUser }>POSTER</div>
                     </div>
                 </div>
-                <div className="login-user" id='box'>
+                {isLoggedIn == false ? (
+                    <div className="login-user" id='box'>
                     <div className="title">
                         <h3>LOGIN</h3>
                     </div>
                     <div className="form">
                         <div className="email">
-                            <input type="text" placeholder='Email' onChange={(e) => setLoginData({...loginData, email: e.target.value})}/>
-                        </div>
-                        <div className="pwd">
-                            <input type="password" placeholder='Mot de passe' onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
-                        </div>
+                        <input type="text" placeholder='Email' onChange={(e) => setLoginData({...loginData, email: e.target.value})}/>
                     </div>
-                    <div className="submit">
-                        <div className="btn-submit" onClick={goLogin}>CREER</div>
+                    <div className="pwd">
+                        <input type="password" placeholder='Mot de passe' onChange={(e) => setLoginData({...loginData, password: e.target.value})}/>
                     </div>
                 </div>
+                <div className="submit">
+                    <div className="btn-submit" onClick={goLogin}>POSTER</div>
+                </div>
+                </div>
+                ) : null}
                 <div className="recommendation" id='box'>
                     <div className="title">
                         <h3>RECOMMENDATION</h3>
