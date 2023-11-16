@@ -28,6 +28,7 @@ app.get('/article', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const rows = await conn.query('SELECT * FROM article');
+        conn.release();
         res.status(200).json(rows);
     }
     catch (err) {
@@ -41,6 +42,7 @@ app.get('/article/:id', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const rows = await conn.query('SELECT * FROM article WHERE id = ?', [id]);
+        conn.release();
         res.status(200).json(rows[0]);
     } catch (err) {
         console.log(err);
@@ -92,7 +94,7 @@ app.post('/article', async (req, res) => {
         ]);
 
         const insertedArticleId = result.insertId.toString();
-
+        conn.release();
         res.status(201).json({ insertedArticleId });
     } catch (err) {
         console.error(err);
@@ -106,6 +108,7 @@ app.delete('/article/:id', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const result = await conn.query('DELETE FROM article WHERE id = ?', [id]);
+        conn.release();
         res.status(200).json({ message: 'Article supprimée' });
     } catch (err) {
         console.log(err);
@@ -118,6 +121,7 @@ app.get('/utilisateur', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const rows = await conn.query('SELECT * FROM utilisateur');
+        conn.release();
         res.status(200).json(rows);
     }
     catch (err) {
@@ -131,6 +135,7 @@ app.get('/utilisateur/:id', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const rows = await conn.query('SELECT * FROM utilisateur WHERE id = ?', [id]);
+        conn.release();
         res.status(200).json(rows[0]);
     } catch (err) {
         console.log(err);
@@ -156,6 +161,7 @@ app.post('/utilisateur', async (req, res) => {
         ]);
 
         const insertedUserId = result.insertId.toString();
+        conn.release();
 
         res.status(201).json({ insertedUserId });
     } catch (err) {
@@ -170,6 +176,7 @@ app.delete('/utilisateur/:id', async (req, res) => {
     try {
         conn = await pool.getConnection();
         const result = await conn.query('DELETE FROM utilisateur WHERE id = ?', [id]);
+        conn.release();
         res.status(200).json({ message: 'Utilisateur supprimée' });
     } catch (err) {
         console.log(err);
