@@ -61,7 +61,7 @@ export default function Home() {
 
         const [loginData, setLoginData] = useState({email: '',password: ''});
 
-        const [isLoggedIn, setLoggedIn] = useState(false);
+        const [isLoggedIn, setLoggedIn] = useState(true);
 
   const post = async (e) => {
     e.preventDefault();
@@ -130,8 +130,10 @@ const goLogin = async () => {
             ls.setItem("key2", userData.prenom);
             ls.setItem("key3", userData.nom);
             ls.setItem("key4", userData.email);
+            ls.setItem("key5", "true");
             console.log("Connecté")
             console.log(ls);
+            window.location.reload();
         } else {
             console.log("Non");
         }
@@ -143,6 +145,7 @@ const goLogin = async () => {
 const goLogout = async () => {
     try {
         localStorage.clear();
+        ls.setItem("key5","false");
         setLoggedIn(false);
         window.location.reload();
     } catch(error) {
@@ -267,7 +270,7 @@ const goLogout = async () => {
                         <div className="btn-submit" onClick={ createUser }>POSTER</div>
                     </div>
                 </div>
-                {isLoggedIn == false ? (
+                {ls.getItem("key5") == "false" ? (
                     <div className="login-user" id='box'>
                     <div className="title">
                         <h3>LOGIN</h3>
