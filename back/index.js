@@ -5,7 +5,7 @@ let cors = require("cors");
 require('dotenv').config();
 
 const app = express()
-const port = 3000
+const port = 3000;
 
 const pool = mariadb.createPool({
     host: process.env.DB_HOST,
@@ -47,6 +47,28 @@ app.get('/article/:id', async (req, res) => {
         res.status(500).json({ error: 'Erreur Serveur' });
     }
 });
+
+app.post('/login', async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const conn = await pool.getConnection();
+        const rows = await conn.query('SELECT * FROM utilisateur WHERE email = ?', [email])
+        conn.release();
+        if (rows.length > 0) {
+            const user = rows[0];
+            const match = await bcrypt.compare(password, user.pwd);
+            if (match) {
+                res.status(200).json('Connexion réussie')
+            } else {
+                res.status(401).json('Données incorrectes');
+            }
+        } else {
+            res.status(404).json('Données incorrectes');
+        }
+    } catch (error) {
+        res.status(500).json('Erreur inconnue');
+    }
+})
 
 app.post('/article', async (req, res) => {
     const newArticle = req.body;
